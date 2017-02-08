@@ -1,0 +1,94 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 52.22967560
+  longitude: 21.01222870
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 175
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Warsaw
+
+# Enables the frontend
+frontend:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  # api_password: PASSWORD
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+# Checks for available updates
+updater:
+# Discover some devices automatically
+discovery:
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+# Enables support for tracking state changes over time.
+history:
+# View all events in a logbook
+logbook:
+# Text to speech
+tts:
+  platform: google
+
+sensor command_sensor:
+  - platform: command_line
+    command: "cat ~/.homeassistant/temp_sensor1.txt"
+    unit_of_measurement: "°C"
+
+sensor command_sensor_2:
+  - platform: command_line
+    command: "cat ~/.homeassistant/temp_sensor2.txt"
+    unit_of_measurement: "°C"
+
+automation:
+  trigger:
+    platform: state
+    entity_id: sensor.command_sensor
+  action:
+    service: climate.set_temperature
+    data_template:
+      temperature: '{{ states.sensor.command_sensor_2.state }}'
+      target_temp_high: '{{ states.sensor.command_sensor_2.state }}'
+      target_temp_low: '{{ states.sensor.command_sensor_2.state }}'
+
+# Full example configuration.yaml entry
+climate:
+  - platform: generic_thermostat
+    name: Study
+    heater: switch.study_heater
+    operation_mode: auto
+    target_sensor: sensor.command_sensor
+    target_temperature: 15
+
+# nest:
+#   client_id: 611bb886-893c-4374-addd-ef257a6e279e
+#   client_secret: vteV8wRIPnNFCQQHtjjnFqvZH
+
+# # Track the sun
+# sun:
+
+# mqtt:
+#   broker: 127.0.0.1
+
+# sensor target_temperature_high:
+#   - platform: mqtt
+#     name: "Temp"
+#     state_topic: "home-assistant/lukasz/thermostat_settings"
+#     unit_of_measurement: "°C"
+#     value_template: "{{ value_json.own_target_temp_high }}"
+
+# sensor target_temperature_low:
+#   - platform: mqtt
+#     name: "Temp tolerance"
+#     state_topic: "home-assistant/lukasz/thermostat_settings"
+#     unit_of_measurement: "°C"
+#     value_template: "{{ value_json.own_target_temp_min }}"
+
+# device_tracker:
+#  - platform: nmap_tracker
+#    hosts: 192.168.0.1-40
+
+
