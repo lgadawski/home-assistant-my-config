@@ -33,59 +33,60 @@ logbook:
 tts:
   platform: google
 
+mqtt:
+  broker: 127.0.0.1
+
+logger:
+  default: debug
+
 sensor command_sensor:
-  - platform: command_line
-    command: "cat ~/.homeassistant/temp_sensor1.txt"
+  - platform: mqtt
+    name: target_thermostat_temperature
+    state_topic: "home-assistant/lukasz/thermostat_settings"
+    value_template: '{{ value_json.temperature}}'
     unit_of_measurement: "°C"
 
 sensor command_sensor_2:
-  - platform: command_line
-    command: "cat ~/.homeassistant/temp_sensor2.txt"
+  - platform: mqtt
+    name: target_thermostat_tolerance
+    state_topic: "home-assistant/lukasz/thermostat_settings"
+    value_template: '{{ value_json.tolerance }}'
     unit_of_measurement: "°C"
 
-automation:
-  trigger:
-    platform: state
-    entity_id: sensor.command_sensor
-  action:
-    service: climate.set_temperature
-    data_template:
-      temperature: '{{ states.sensor.command_sensor_2.state }}'
-      target_temp_high: '{{ states.sensor.command_sensor_2.state }}'
-      target_temp_low: '{{ states.sensor.command_sensor_2.state }}'
+sensor command_sensor_3:
+  - platform: command_line
+    name: current_temperature
+    command: "cat ~/.homeassistant/sensor_temperature.txt"
+    unit_of_measurement: "°C"
 
-# Full example configuration.yaml entry
 climate:
   - platform: generic_thermostat
     name: Study
     heater: switch.study_heater
     operation_mode: auto
-    target_sensor: sensor.command_sensor
-    target_temperature: 15
+    target_sensor: sensor.command_sensor_3
+    target_temperature: 15    
 
-# nest:
-#   client_id: 611bb886-893c-4374-addd-ef257a6e279e
-#   client_secret: vteV8wRIPnNFCQQHtjjnFqvZH
+# automation set_temp:
+#   trigger:
+#     platform: state
+#     entity_id: sensor.command_sensor
+#   action:
+#     service: climate.set_temperature
+#     data_template:
+#       temperature: '{{ states.sensor.command_sensor.state }}'
+
+# automation set_tol:
+#   trigger:
+#     platform: state
+#     entity_id: sensor.command_sensor
+#   action:
+#     service: climate.generic_thermostat_set_tolerance
+#     data_template:
+#       tolerance: '{{ states.sensor.command_sensor_2.state }}'
 
 # # Track the sun
 # sun:
-
-# mqtt:
-#   broker: 127.0.0.1
-
-# sensor target_temperature_high:
-#   - platform: mqtt
-#     name: "Temp"
-#     state_topic: "home-assistant/lukasz/thermostat_settings"
-#     unit_of_measurement: "°C"
-#     value_template: "{{ value_json.own_target_temp_high }}"
-
-# sensor target_temperature_low:
-#   - platform: mqtt
-#     name: "Temp tolerance"
-#     state_topic: "home-assistant/lukasz/thermostat_settings"
-#     unit_of_measurement: "°C"
-#     value_template: "{{ value_json.own_target_temp_min }}"
 
 # device_tracker:
 #  - platform: nmap_tracker

@@ -1,0 +1,4 @@
+curl -X POST -H "Content_Type: application/json" -d '{"state": "20", "attributes": {"unit_of_measurement": "°C"}}' http://localhost:8123/api/states/sensor.target_thermostat_temperature
+{"attributes": {"unit_of_measurement": "\u00b0C"}, "entity_id": "sensor.target_thermostat_temperature", "last_changed": "2017-02-10T13:35:47.581936+00:00", "last_updated": "2017-02-10T13:35:47.581936+00:00", "state": "20"}
+
+mosquitto_pub -h 127.0.0.1 -t "home-assistant/lukasz/thermostat_settings" -m '{"temperature": 35.0, "tolerance": 1}'
