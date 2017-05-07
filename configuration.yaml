@@ -14,7 +14,7 @@ homeassistant:
 # Enables the frontend
 frontend:
 
-http:
+#http:
   # Uncomment this to add a password (recommended!)
   # api_password: PASSWORD
   # Uncomment this if you are using SSL or running in Docker etc
@@ -64,32 +64,34 @@ climate:
     name: Study
     heater: switch.study_heater
     operation_mode: auto
-    target_sensor: sensor.command_sensor_3
+    target_sensor: sensor.current_temperature
     target_temperature: 15    
 
-# automation set_temp:
-#   trigger:
-#     platform: state
-#     entity_id: sensor.command_sensor
-#   action:
-#     service: climate.set_temperature
-#     data_template:
-#       temperature: '{{ states.sensor.command_sensor.state }}'
+automation set_temp:
+  trigger:
+    platform: state
+    entity_id: sensor.target_thermostat_temperature
+  action:
+    service: climate.set_temperature
+    data_template:
+      # temperature: '{{ states.sensor.command_sensor.state }}'
+      temperature: '{{ states.sensor.target_thermostat_temperature.state }}'
 
-# automation set_tol:
-#   trigger:
-#     platform: state
-#     entity_id: sensor.command_sensor
-#   action:
-#     service: climate.generic_thermostat_set_tolerance
-#     data_template:
-#       tolerance: '{{ states.sensor.command_sensor_2.state }}'
+automation set_tol:
+  trigger:
+    platform: state
+    entity_id: sensor.target_thermostat_tolerance
+  action:
+    service: climate.generic_thermostat_set_tolerance
+    data_template:
+      # tolerance: '{{ states.sensor.command_sensor_2.state }}'
+      tolerance: '{{ states.sensor.target_thermostat_tolerance.state }}'
 
 # # Track the sun
 # sun:
 
-# device_tracker:
-#  - platform: nmap_tracker
-#    hosts: 192.168.0.1-40
+device_tracker:
+ - platform: nmap_tracker
+   hosts: 192.168.0.1-40
 
 

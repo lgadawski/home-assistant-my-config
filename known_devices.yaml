@@ -1,0 +1,56 @@
+
+4432c87b626c:
+  hide_if_away: false
+  mac: 44:32:C8:7B:62:6C
+  name: router
+  picture: /local/router.png
+  track: true
+  vendor: Technicolor CH USA Inc.
+
+b8763f2c5edb:
+  hide_if_away: false
+  mac: B8:76:3F:2C:5E:DB
+  name: Lusia-pc
+  picture: /local/lusia-pc.png
+  track: true
+  vendor: Hon Hai Precision Ind. Co.,Ltd.
+
+78f8829e9232:
+  hide_if_away: false
+  mac: 78:F8:82:9E:92:32
+  name: Luki-lg
+  picture: /local/luki-mobile.png
+  track: true
+  vendor: LG Electronics (Mobile Communications)
+
+64bc0c9e8a8c:
+  hide_if_away: false
+  mac: 64:BC:0C:9E:8A:8C
+  name: Lusia-lg
+  picture: /local/lusia-mobile.png
+  track: true
+  vendor: LG Electronics (Mobile Communications)
+
+e0b52d46ed21:
+  hide_if_away: false
+  mac: E0:B5:2D:46:ED:21
+  name: e0b52d46ed21
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+60d9a0c7eb0c:
+  hide_if_away: false
+  mac: 60:D9:A0:C7:EB:0C
+  name: 60d9a0c7eb0c
+  picture:
+  track: true
+  vendor: Lenovo Mobile Communication Technology Ltd.
+
+acc1ee512a0d:
+  hide_if_away: false
+  mac: AC:C1:EE:51:2A:0D
+  name: acc1ee512a0d
+  picture:
+  track: true
+  vendor: unknown
