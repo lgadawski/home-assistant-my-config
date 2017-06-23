@@ -74,7 +74,6 @@ automation set_temp:
   action:
     service: climate.set_temperature
     data_template:
-      # temperature: '{{ states.sensor.command_sensor.state }}'
       temperature: '{{ states.sensor.target_thermostat_temperature.state }}'
 
 automation set_tol:
@@ -84,7 +83,6 @@ automation set_tol:
   action:
     service: climate.generic_thermostat_set_tolerance
     data_template:
-      # tolerance: '{{ states.sensor.command_sensor_2.state }}'
       tolerance: '{{ states.sensor.target_thermostat_tolerance.state }}'
 
 # # Track the sun
